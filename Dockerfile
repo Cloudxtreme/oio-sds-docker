@@ -66,10 +66,6 @@ ENV LD_LIBRARY_PATH /usr/local/lib/:/usr/local/lib64/
 # make custom binaries available from within the container
 ADD bin /usr/local/bin
 
-# fix bug with `getlogin()` until (and if) https://github.com/open-io/oio-sds/pull/33 gets merged
-RUN ["/bin/sed", "-i", "-e", "s/os.getlogin()/pwd.getpwuid(os.getuid())/g", "/usr/local/bin/oio-bootstrap.py"]
-RUN ["/bin/sed", "-i", "-e", "s/import os, errno/import os, errno, pwd/g", "/usr/local/bin/oio-bootstrap.py"]
-
 # test files, see README.md for usage
 ADD test /root/test
 
