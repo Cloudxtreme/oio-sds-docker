@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/etc/init.d/zookeeper restart
+sleep 3
+oio-reset.sh
