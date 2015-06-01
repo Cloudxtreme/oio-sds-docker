@@ -71,6 +71,7 @@ ADD bin /usr/local/bin
 RUN ["/bin/sed", "-i", "-e", "s/os.getlogin()/pwd.getpwuid(os.getuid())/g", "/usr/local/bin/oio-bootstrap.py"]
 RUN ["/bin/sed", "-i", "-e", "s/import os, errno/import os, errno, pwd/g", "/usr/local/bin/oio-bootstrap.py"]
 
+# test files, see README.md for usage
 ADD test /root/test
 
 ENTRYPOINT ["/usr/local/bin/startup"]

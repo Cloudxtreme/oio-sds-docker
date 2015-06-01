@@ -1,5 +1,12 @@
-all:
-	gcc -g -std=c99 -Wall -Wextra -Werror main.c \
+NAME = test
+CFLAGS = -g -std=c99 -Wall -Wextra -Werror
+CC = gcc
+SRC = main.c
+
+all: $(NAME)
+
+$(NAME): $(SRC)
+	$(CC) $(CFLAGS) -o $(NAME) $(SRC) \
 		-L/usr/lib64 \
 		-lgridclient \
 		-lmetautils \
