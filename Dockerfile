@@ -27,7 +27,6 @@ RUN apt-get install -y libglib2.0-0 libglib2.0-0-dbg libglib2.0-dev
 RUN apt-get install -y libevent-2.0-5 libevent-dev libevent-dbg libevent-extra-2.0-5
 
 # gridinit
-# Needs LD_LIBRARY_PATH=/usr/local/lib64/ for the binaries to work
 RUN cd /tmp && git clone https://github.com/open-io/gridinit.git && cd gridinit && cmake . && make && make install && ldconfig `pwd`
 # end gridinit
 
@@ -67,7 +66,7 @@ ENV LD_LIBRARY_PATH /usr/local/lib/:/usr/local/lib64/
 # make custom binaries available from within the container
 ADD bin /usr/local/bin
 
-# fix bug with `getlogin()`
+# fix bug with `getlogin()` until (and if) https://github.com/open-io/oio-sds/pull/33 gets merged
 RUN ["/bin/sed", "-i", "-e", "s/os.getlogin()/pwd.getpwuid(os.getuid())/g", "/usr/local/bin/oio-bootstrap.py"]
 RUN ["/bin/sed", "-i", "-e", "s/import os, errno/import os, errno, pwd/g", "/usr/local/bin/oio-bootstrap.py"]
 
